@@ -1,10 +1,13 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+export default function EmailVerifiedPage({
+  searchParams,
+}: {
+  searchParams: { status?: string }
+}) {
 
-export default function EmailVerifiedPage() {
-  const params = useSearchParams();
-  const status = params.get("status");
+  const status = searchParams?.status;
 
   const title =
     status === "already_verified"

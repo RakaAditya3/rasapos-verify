@@ -2,9 +2,13 @@
 
 import { useSearchParams } from "next/navigation";
 
-export default function EmailVerifyFailed() {
-  const params = useSearchParams();
-  const reason = params.get("reason");
+export default function EmailVerifyFailedPage({
+  searchParams,
+}: {
+  searchParams: { reason?: string }
+}) {
+
+  const reason = searchParams?.reason;
 
   const errorText =
     reason === "invalid_hash"
@@ -17,10 +21,10 @@ export default function EmailVerifyFailed() {
       <p className="text-gray-600 mb-6">{errorText}</p>
 
       <a
-        href="https://rasapos.app/resend-verification"
+        href="mailto:support@rasapos.app"
         className="px-5 py-2 rounded-full border border-gray-400 text-gray-700 font-semibold"
       >
-        Kirim ulang verifikasi
+        Hubungi Support
       </a>
 
       <p className="text-sm text-gray-400 mt-4">
