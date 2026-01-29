@@ -47,20 +47,28 @@ export default function ResetPasswordClient() {
                 }
             );
 
-            const data = await res.json();
+            // ⬇️ AMAN: cek dulu content-type
+            const contentType = res.headers.get('content-type');
+            let data: any = null;
 
-            if (!res.ok) {
-                throw new Error(data.message || 'Gagal reset password');
+            if (contentType && contentType.includes('application/json')) {
+                data = await res.json();
             }
 
-            setMessage('Password berhasil direset. Silakan login.');
+            if (!res.ok) {
+                throw new Error(data?.message || 'Gagal reset password');
+            }
+
+            setMessage(data?.message || 'Password berhasil direset.');
             setTimeout(() => router.push('/login'), 2000);
+
         } catch (err: any) {
-            setMessage(err.message);
+            setMessage(err.message || 'Terjadi kesalahan');
         } finally {
             setLoading(false);
         }
     };
+
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
