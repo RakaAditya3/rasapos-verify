@@ -8,7 +8,9 @@ export default function ResetPasswordClient() {
     const router = useRouter();
 
     const token = searchParams.get('token');
-    const email = searchParams.get('email');
+    const rawEmail = searchParams.get('email');
+    const email = rawEmail ? decodeURIComponent(rawEmail) : null;
+
 
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
